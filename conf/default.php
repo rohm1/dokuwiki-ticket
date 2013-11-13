@@ -6,3 +6,4 @@
  */
 
 $conf['url']    = 'http://your-ticket-system.net/ticket-%s';
+$conf['targetBlank'] = 1;

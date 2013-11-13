@@ -66,7 +66,7 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
     {
         if($mode != 'xhtml') return false;
 
-        $renderer->doc .= '<a href="' . sprintf($this->getConf('url'), $data[0]) . '" target="_blank" title="Ticket #' . $data[0] .'">#' . $data[0] .'</a>';
+        $renderer->doc .= '<a href="' . sprintf($this->getConf('url'), $data[0]) . '"' . ($this->getConf('targetBlank') ? ' target="_blank"' : '') . ' title="Ticket #' . $data[0] .'">#' . $data[0] .'</a>';
 
         return true;
     }

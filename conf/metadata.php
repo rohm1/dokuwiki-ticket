@@ -7,4 +7,4 @@
 
 
 $meta['url'] = array('string');
-
+$meta['targetBlank'] = array('onoff');
