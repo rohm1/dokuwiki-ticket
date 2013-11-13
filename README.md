@@ -9,7 +9,7 @@ Usage
 Your tickets references have to be numeric. In the editor, type something like:
 
 ````
-As specified in ticket ticket#1234 ...
+As specified in ticket #1234 ...
 ````
 
 It will be parsed into a link, and the displayed text will be ````#1234````. Don't forget to configure the base url
