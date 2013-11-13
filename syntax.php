@@ -35,7 +35,7 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
      */
     public function connectTo($mode)
     {
-        $this->Lexer->addSpecialPattern(' #\d+ ', $mode, 'plugin_ticket');
+        $this->Lexer->addSpecialPattern('#\d+', $mode, 'plugin_ticket');
     }
 
     /**
@@ -49,7 +49,7 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
      */
     public function handle($match, $state, $pos, &$handler)
     {
-        $ticket = substr(trim($match), 1);
+        $ticket = substr($match, 1);
 
         return array($ticket);
     }
@@ -66,7 +66,7 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
     {
         if($mode != 'xhtml') return false;
 
-        $renderer->doc .= ' <a href="' . sprintf($this->getConf('url'), $data[0]) . '" title="Ticket #' . $data[0] .'">#' . $data[0] .'</a> ';
+        $renderer->doc .= '<a href="' . sprintf($this->getConf('url'), $data[0]) . '" target="_blank" title="Ticket #' . $data[0] .'">#' . $data[0] .'</a>';
 
         return true;
     }
