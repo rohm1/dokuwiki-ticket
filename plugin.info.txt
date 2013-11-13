@@ -1,0 +1,7 @@
+base   ticket
+author Romain Perez
+email  rp@rohm1.com
+date   2013-11-13
+name   ticket plugin
+desc   Allows to link to a ticket system (eg. redmine)
+url    http://github.com/rohm1/dokuwiki-ticket
