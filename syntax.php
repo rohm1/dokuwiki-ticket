@@ -76,13 +76,11 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
     {
         if($mode != 'xhtml') return false;
 
-        $url = '';
-        switch ($data[1]) {
-            case 'jira': $url = $this->getConf('jira_url'); break;
-            default: $url = $this->getConf('url'); break;
+        if ($data[1] == 'jira') {
+            $renderer->doc .= '<a href="' . sprintf($this->getConf('jira_url'), $data[0]) . '"' . ($this->getConf('targetBlank') ? ' target="_blank"' : '') . ' title="Ticket ' . $data[0] .'">' . $data[0] .'</a>';
+        } else {
+            $renderer->doc .= '<a href="' . sprintf($this->getConf('url'), $data[0]) . '"' . ($this->getConf('targetBlank') ? ' target="_blank"' : '') . ' title="Ticket #' . $data[0] .'">#' . $data[0] .'</a>';
         }
-
-        $renderer->doc .= '<a href="' . sprintf($url, $data[0]) . '"' . ($this->getConf('targetBlank') ? ' target="_blank"' : '') . ' title="Ticket #' . $data[0] .'">#' . $data[0] .'</a>';
 
         return true;
     }
