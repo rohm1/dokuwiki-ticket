@@ -1,7 +1,7 @@
 dokuwiki-ticket
 ===============
 
-Allows to link to a ticket system (eg. redmine)
+Allows to link to a ticket system (eg. redmine, jira)
 
 Usage
 -----
