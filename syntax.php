@@ -12,6 +12,9 @@ if (!defined('DOKU_INC')) die();
 class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
 {
 
+	const PATTERN_DEFAULT = '\d+';
+	const PATTERN_JIRA = '[A-Z]{1,10}\-[0-9]+';
+
     /**
      * @return string Syntax mode type
      */
@@ -35,7 +38,8 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
      */
     public function connectTo($mode)
     {
-        $this->Lexer->addSpecialPattern('#\d+', $mode, 'plugin_ticket');
+        $this->Lexer->addSpecialPattern('#' . self::PATTERN_DEFAULT, $mode, 'plugin_ticket');
+        $this->Lexer->addSpecialPattern('#' . self::PATTERN_JIRA, $mode, 'plugin_ticket');
     }
 
     /**
@@ -51,7 +55,12 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
     {
         $ticket = substr($match, 1);
 
-        return array($ticket);
+        $system = 'default';
+        if (preg_match('/^' . self::PATTERN_JIRA .'$/', $ticket)) {
+            $system = 'jira';
+        }
+
+        return array($ticket, $system);
     }
 
     /**
@@ -66,7 +75,13 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
     {
         if($mode != 'xhtml') return false;
 
-        $renderer->doc .= '<a href="' . sprintf($this->getConf('url'), $data[0]) . '"' . ($this->getConf('targetBlank') ? ' target="_blank"' : '') . ' title="Ticket #' . $data[0] .'">#' . $data[0] .'</a>';
+        $url = '';
+        switch ($data[1]) {
+            case 'jira': $url = $this->getConf('jira_url'); break;
+            default: $url = $this->getConf('url'); break;
+        }
+
+        $renderer->doc .= '<a href="' . sprintf($url, $data[0]) . '"' . ($this->getConf('targetBlank') ? ' target="_blank"' : '') . ' title="Ticket #' . $data[0] .'">#' . $data[0] .'</a>';
 
         return true;
     }

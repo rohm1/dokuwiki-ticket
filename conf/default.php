@@ -6,4 +6,5 @@
  */
 
 $conf['url']    = 'http://your-ticket-system.net/ticket-%s';
+$conf['jira_url']    = 'http://your-jira-url.net/browse/%s';
 $conf['targetBlank'] = 1;

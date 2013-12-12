@@ -7,4 +7,5 @@
 
 
 $meta['url'] = array('string');
+$meta['jira_url'] = array('string');
 $meta['targetBlank'] = array('onoff');
