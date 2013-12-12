@@ -12,7 +12,7 @@ if (!defined('DOKU_INC')) die();
 class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
 {
 
-	const PATTERN_DEFAULT = '\d+';
+	const PATTERN_DEFAULT = '#\d+';
 	const PATTERN_JIRA = '[A-Z]{1,10}\-[0-9]+';
 
     /**
@@ -38,8 +38,8 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
      */
     public function connectTo($mode)
     {
-        $this->Lexer->addSpecialPattern('#' . self::PATTERN_DEFAULT, $mode, 'plugin_ticket');
-        $this->Lexer->addSpecialPattern('#' . self::PATTERN_JIRA, $mode, 'plugin_ticket');
+        $this->Lexer->addSpecialPattern(self::PATTERN_DEFAULT, $mode, 'plugin_ticket');
+        $this->Lexer->addSpecialPattern(self::PATTERN_JIRA, $mode, 'plugin_ticket');
     }
 
     /**
@@ -53,11 +53,12 @@ class syntax_plugin_ticket extends DokuWiki_Syntax_Plugin
      */
     public function handle($match, $state, $pos, &$handler)
     {
-        $ticket = substr($match, 1);
-
-        $system = 'default';
-        if (preg_match('/^' . self::PATTERN_JIRA .'$/', $ticket)) {
+        if (preg_match('/^' . self::PATTERN_JIRA .'$/', $match)) {
             $system = 'jira';
+            $ticket = $match;
+        } else {
+            $system = 'default';
+            $ticket = substr($match, 1);
         }
 
         return array($ticket, $system);
