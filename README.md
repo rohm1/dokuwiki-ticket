@@ -28,7 +28,7 @@ Result:
 Installation
 ------------
 
-You can use the ZIP file inside the build directory to install the plugin.
+ZIP file: https://github.com/rohm1/dokuwiki-ticket/archive/master.zip
 
 If you install this plugin manually, make sure it is installed in
 lib/plugins/ticket/ - if the folder is called different it
